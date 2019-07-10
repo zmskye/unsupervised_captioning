@@ -1,5 +1,5 @@
 """Extract image descriptions from the downloaded files."""
-import cPickle as pkl
+import pickle as pkl
 import glob
 import json
 import sys
@@ -21,29 +21,29 @@ FLAGS = flags.FLAGS
 
 
 def main(_):
-  s = set()
-  files = glob.glob(FLAGS.data_dir + '/*.json')
-  files.sort()
-  for i in tqdm(files):
-    with open(i, 'r') as g:
-      data = json.load(g)
-      for k, v in data.items():
-        for j in v:
-          if 'description' in j:
-            c = normalize('NFKD', j['description']).encode('ascii', 'ignore')
-            c = c.split('\n')
-            s.update(c)
+    s = set()
+    files = glob.glob(FLAGS.data_dir + '/*.json')
+    files.sort()
+    for i in tqdm(files):
+        with open(i, 'r') as g:
+            data = json.load(g)
+            for k, v in data.items():
+                for j in v:
+                    if 'description' in j:
+                        c = normalize('NFKD', j['description']).encode('ascii', 'ignore')
+                        c = c.split('\n')
+                        s.update(c)
 
-  pool = Pool()
-  captions = pool.map(_process_caption, list(s))
-  pool.close()
-  pool.join()
-  # There is a sos and eos in each caption, so the actual length is at least 8.
-  captions = [i for i in captions if len(i) >= 10]
-  print('%s captions parsed' % len(captions))
-  with open('data/sentences.pkl', 'w') as f:
-    pkl.dump(captions, f)
+    pool = Pool()
+    captions = pool.map(_process_caption, list(s))
+    pool.close()
+    pool.join()
+    # There is a sos and eos in each caption, so the actual length is at least 8.
+    captions = [i for i in captions if len(i) >= 10]
+    print('%s captions parsed' % len(captions))
+    with open('data/sentences.pkl', 'w') as f:
+        pkl.dump(captions, f)
 
 
 if __name__ == '__main__':
-  app.run(main)
+    app.run(main)
