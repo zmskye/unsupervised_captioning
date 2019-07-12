@@ -33,7 +33,7 @@ sys.path.append(os.path.join(TF_MODELS_PATH, 'research/slim/nets'))
 
 import inception_v4
 
-# os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 # tf.logging.set_verbosity(tf.logging.ERROR)
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
