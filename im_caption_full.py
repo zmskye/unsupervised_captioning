@@ -29,15 +29,12 @@ from misc_fn import transform_grads_fn
 from misc_fn import validate_batch_size_for_multi_gpu
 from misc_fn import variable_summaries
 
-import warnings
-
-warnings.filterwarnings('ignore')
-
 # sys.path.append(TF_MODELS_PATH + '/research/slim')
 sys.path.append(os.path.join(TF_MODELS_PATH, 'research/slim'))
 from nets import inception_v4
 
 os.environ['CUDA_VISIBLE_DEVICEs'] = '0'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
