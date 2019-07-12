@@ -35,7 +35,8 @@ import inception_v4
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-tf.logging.set_verbosity(tf.logging.ERROR)
+# tf.logging.set_verbosity(tf.logging.ERROR)
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 tf.flags.DEFINE_integer('intra_op_parallelism_threads', 0, 'Number of threads')
 
