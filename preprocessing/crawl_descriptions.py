@@ -6,10 +6,10 @@ import time
 import urllib.request
 from multiprocessing import Pool
 
-from absl import app
-from absl import flags
+from absl import app, flags
+from tqdm import tqdm, trange
 
-flags.DEFINE_string('data_dir', 'data/coco', 'data directory')
+flags.DEFINE_string('data_dir', '../data/coco', 'data directory')
 
 flags.DEFINE_integer('num_pages', 1000, 'number of images')
 
@@ -19,7 +19,9 @@ FLAGS = flags.FLAGS
 
 url = ('https://www.shutterstock.com/search?language=en&image_type=photo&'
        'searchterm=%s&page=%d')
+# pattern = '<script type="application/ld\+json">(\[.*\])</script>'
 pattern = '<script type="application/ld\+json">(\[.*\])</script>'
+
 
 
 class Downloader(object):
@@ -56,8 +58,8 @@ def get_num_pages(label):
     with urllib.request.urlopen(req) as f:
         page = f.read()
     page = page.decode('utf-8')
-    obj = re.search('data-max="(\d*)"', page)
-    num_pages = int(obj.group(1))
+    obj = re.search(r'b_M_g">of ([0-9,]*)</div>', page)
+    num_pages = int(obj.group(1).replace(',', ''))
     return num_pages
 
 
@@ -92,8 +94,11 @@ def main(_):
     with open(FLAGS.data_dir + '/coco.names', 'r') as f:
         classes = list(f)
     classes = [i.strip().replace(' ', '+') for i in classes]
-    for i, c in enumerate(classes):
-        download(FLAGS.data_dir, FLAGS.num_pages, i, c)
+    ix = 0
+    for c in tqdm(classes):
+        # for i, c in tqdm(enumerate(classes)):
+        download(FLAGS.data_dir, FLAGS.num_pages, ix, c)
+        ix += 1
 
 
 if __name__ == '__main__':
