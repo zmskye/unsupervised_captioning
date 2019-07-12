@@ -33,7 +33,7 @@ sys.path.append(os.path.join(TF_MODELS_PATH, 'research/slim/nets'))
 
 import inception_v4
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 # tf.logging.set_verbosity(tf.logging.ERROR)
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
@@ -56,9 +56,9 @@ tf.flags.DEFINE_integer('batch_size', 64, 'batch size')
 
 tf.flags.DEFINE_integer('max_steps', 1000000, 'maximum training steps')
 
-tf.flags.DEFINE_float('gen_lr', 0.0001, 'learning rate')
+tf.flags.DEFINE_float('gen_lr', 0.001, 'learning rate')
 
-tf.flags.DEFINE_float('dis_lr', 0.0001, 'learning rate')
+tf.flags.DEFINE_float('dis_lr', 0.001, 'learning rate')
 
 tf.flags.DEFINE_integer('save_summary_steps', 100, 'save summary steps')
 
