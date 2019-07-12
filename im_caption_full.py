@@ -33,10 +33,9 @@ from misc_fn import variable_summaries
 sys.path.append(os.path.join(TF_MODELS_PATH, 'research/slim'))
 from nets import inception_v4
 
-os.environ['CUDA_VISIBLE_DEVICEs'] = '0'
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-tf.logging.set_verbosity(tf.logging.INFO)
+tf.logging.set_verbosity(tf.logging.ERROR)
 
 tf.flags.DEFINE_integer('intra_op_parallelism_threads', 0, 'Number of threads')
 
