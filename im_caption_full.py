@@ -72,7 +72,7 @@ tf.flags.DEFINE_bool('use_pool', False, 'use pool')
 
 tf.flags.DEFINE_integer('pool_size', 512, 'pool size')
 
-tf.flags.DEFINE_string('inc_ckpt', '/DATA/disk1/zhangming6/projects/unsupervised_caption/ckpt',
+tf.flags.DEFINE_string('inc_ckpt', '/DATA/disk1/zhangming6/projects/unsupervised_caption/ckpt/inception_v4.ckpt',
                        'path to InceptionV4 checkpoint')
 
 tf.flags.DEFINE_string('imcap_ckpt', None, 'initialization checkpoint')
