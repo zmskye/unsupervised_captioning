@@ -29,8 +29,9 @@ from misc_fn import transform_grads_fn
 from misc_fn import validate_batch_size_for_multi_gpu
 from misc_fn import variable_summaries
 
-sys.path.append(os.path.join(TF_MODELS_PATH, 'research/slim'))
-from nets import inception_v4
+sys.path.append(os.path.join(TF_MODELS_PATH, 'research/slim/nets'))
+
+import inception_v4
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
